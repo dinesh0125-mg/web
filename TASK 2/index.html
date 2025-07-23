@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Task Hub</title>
+  <link rel="stylesheet" href="style.css" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #c2e9fb, #f9f9f9);
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero {
+        background: url('https://images.unsplash.com/photo-1531297484001-80022131f5a1') no-repeat center center/cover;
+        background-color: linear-gradient(to right, #c2e9fb, #f9f9f9);
+        padding: 60px 60px;
+        justify-content: center;
+        align-items: center;
+        max-width: 90%;
+        height: 10%;
+        flex-wrap: wrap;
+        gap: 40px;
+}
+
+.hero-flex {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  gap: 40px;
+  padding: 40px;
+}
+
+
+.hero-left, .hero-right {
+  flex: 1;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.hero-left {
+  background: url('your-left-background.jpg') no-repeat center center/cover;
+  color: white;
+  border-radius: 20px;
+}
+
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.hero-gif {
+  max-width: 80%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.feature-list {
+  font-size: 1.1rem;
+  font-weight: 500;
+  list-style: none;
+  color: #fff2f2;
+  text-align: left;
+  padding: 0;
+}
+
+.hero-content {
+  background-color: rgba(0, 0, 0, 0.473);
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 400px;
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.hero-btn {
+  background-color: #00acc1;
+  padding: 12px 24px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+.hero-btn:hover {
+  background-color: #00838f;
+}
+
+.hero-image {
+  max-width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+
+    header {
+  background-color: #00acc1;
+  color: white;
+  padding: 50px 50px;
+  text-align: center;
+  animation: fadeInDown 1s;
+  clip-path: polygon(
+    0% 0%, 
+    100% 0%,   
+    100% calc(100% - 30px),
+    50% 100%,   
+    0% calc(100% - 30px) 
+  );
+}
+
+    header h1 {
+      font-size: 2.8rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 40px;
+      animation: fadeInUp 1s;
+    }
+
+    section {
+      background-color: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 30px;
+      width: 100%;
+      max-width: 450px;
+      transition: transform 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-5px);
+    }
+
+    h2 {
+      color: #00796b;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: #f9f9f9;
+      transition: border-color 0.3s;
+    }
+
+    form input:focus,
+    form textarea:focus {
+      border-color: #00acc1;
+      outline: none;
+    }
+
+    form button {
+      background-color: #00796b;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    form button:hover {
+      background-color: #004d40;
+    }
+
+    .contact-info {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px dashed #ccc;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .contact-info a {
+      color: #00796b;
+      text-decoration: none;
+    }
+
+    .todo-input {
+      display: flex;
+      gap: 10px;
+    }
+
+    .todo-input input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .todo-input button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .todo-input button:hover {
+      background-color: #388e3c;
+    }
+
+    ul#taskList {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    ul#taskList li {
+      background-color: #e0f2f1;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    ul#taskList li button {
+      background-color: hsl(0, 0%, 100%);
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    ul#taskList li button:hover {
+      background-color: hwb(0 5% 2%);
+    }
+
+    .info-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 50px;
+  max-width: 1200px; 
+  margin: 0 auto;
+}
+
+.info-banner img {
+  max-width: 400px;
+  border-radius: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.info-text {
+  max-width: 500px;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .info-text {
+    text-align: center;
+  }
+}
+
+    footer {
+      background-color: #00acc1;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .info-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .info-banner .info-text {
+    text-align: center;
+  }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+  <div class="hero-flex">
+    <div class="hero-left">
+      <h1>Welcome to Personal Task Hub</h1>
+      <p>Your all-in-one productivity and contact center.</p>
+      <a href="#contactForm" class="hero-btn">Get Started</a>
+    </div>
+    <div class="hero-right">
+      <img src="https://media.giphy.com/media/QssGEmpkyEOhBCb7e1/giphy.gif" alt="Animated Code" class="hero-gif" />
+      <ul class="feature-list">
+        <li>🚀 Fast and Responsive</li>
+        <li>📋 Easy To-Do Management</li>
+        <li>📨 Seamless Contact Form</li>
+        <li>🎯 Simple, Elegant Design</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+  <header class="animate__animated animate__fadeInDown">
+    <h1>Personal Task Hub</h1>
+    <p>Manage your tasks and connect with us easily!</p>
+  </header>
+
+  <main class="container animate__animated animate__fadeInUp">
+    <section class="form-section">
+      <h2>📬 Contact Us</h2>
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="email" id="email" placeholder="Your Email" required />
+        <textarea id="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <div class="contact-info">
+        <p>📧 Email: <a href="mailto:support@taskhub.com">support@taskhub.com</a></p>
+        <p>📞 Phone: +91 98765 43210</p>
+        <p>📍 Address: 123 Task Street, Productivity City</p>
+      </div>
+    </section>
+
+    <section class="todo-section">
+      <h2>✅ To-Do List</h2>
+      <div class="todo-input">
+        <input type="text" id="taskInput" placeholder="What needs to be done?" />
+        <button onclick="addTask()">➕ Add</button>
+      </div>
+      <ul id="taskList"></ul>
+    </section>
+  </main>
+
+  <section class="info-banner">
+    <img src="https://images.unsplash.com/photo-1581091012184-5c1225b5d4c3?auto=format&fit=crop&w=800&q=80" alt="Team productivity" />
+    <div class="info-text">
+      <h2>Why Personal Task Hub?</h2>
+      <p>Boost your productivity by managing contacts and to-dos in one place. Stay organized, communicate better, and never miss a task again.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Personal Task Hub. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function addTask() {
+      const taskInput = document.getElementById('taskInput');
+      const taskValue = taskInput.value.trim();
+      if (taskValue === "") {
+        alert("Please enter a task.");
+        return;
+      }
+      const li = document.createElement('li');
+      li.innerHTML = `${taskValue} <button onclick="this.parentElement.remove()">❌</button>`;
+      li.classList.add('animate__animated', 'animate__fadeInUp');
+      document.getElementById('taskList').appendChild(li);
+      taskInput.value = "";
+    }
+
+    
+    const contactForm = document.getElementById('contactForm');
+
+    
+    contactForm.addEventListener('submit', function(event) {
+     
+      event.preventDefault();
+      alert("Thank you for your message! We'll get back to you soon");
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('message').value = '';
+    });
+  </script>
+</body>
+</html>
