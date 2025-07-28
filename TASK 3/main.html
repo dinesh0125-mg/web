@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WebDev Explorer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url("bg-main.gif") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: rgba(255, 25, 25, 0.822);
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 90vh;
+      padding: 0 80px;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-text {
+      max-width: 50%;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-text p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .buttons a {
+      background: hsla(0, 100%, 50%, 0.813);
+      color: #10e0eb;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .buttons a:hover {
+      background: hsla(0, 100%, 55%, 0.868);
+    }
+
+    .hero-image img {
+      width: 400px;
+      max-width: 100%;
+      animation: float 3s ease-in-out infinite;
+      border-radius: 50%;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .hero-text, .hero-image {
+        max-width: 100%;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+      }
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: hsl(0, 0%, 100%);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">🧠 Brain It On</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="quiz.html">Quiz</a></li>
+      <li><a href="carousel.html">Carousel</a></li>
+      <li><a href="joke.html">Jokes</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Hi! I'm WebDev Explorer</h1>
+      <p>
+        Explore frontend fun with quizzes, image carousels & programming jokes. Your adventure starts here!
+      </p>
+      <div class="buttons">
+        <a href="quiz.html">🧠 Take Quiz</a>
+        <a href="carousel.html">🏎️ View Carousel</a>
+        <a href="joke.html">😂 Joke Generator</a>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <img src="main.webp" alt="Brain It On" />
+    </div>
+  </section>
+  <footer>
+    <p>© 2025 WebDev Explorer</p>
+  </footer>
+
+</body>
+</html>

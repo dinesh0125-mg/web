@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Carousel - WebDev Explorer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url("carousel.gif") no-repeat center center/cover;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      overflow: hidden;
+      max-width: 800px;
+      margin: auto;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #3ccbf7;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .carousel-track img {
+      width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 45%;
+      background: hsla(107, 100%, 63%, 0.737);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 5;
+      border-radius: 50%;
+    }
+
+    .left {
+      left: 10px;
+    }
+
+    .right {
+      right: 10px;
+    }
+
+    a {
+      display: block;
+      color: #00f2ff;
+      margin-top: 20px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>🏎️ Top Cars</h2>
+  <div class="carousel-wrapper">
+    <div class="carousel-track" id="carousel-track">
+      <img src="https://images.pexels.com/photos/112460/pexels-photo-112460.jpeg" alt="Car 1" />
+      <img src="https://wallpapercave.com/wp/wp2574793.jpg" alt="Car 2" />
+      <img src="https://rare-gallery.com/resol/2048x1152/943735-Toyota-Supra-vehicle-car-night-street-street-light.jpg" alt="Car 3" />
+      <img src="https://www.teahub.io/photos/full/294-2943088_shelby-mustang-black-and-red.jpg" alt="Car 4" />
+      <img src="https://tse3.mm.bing.net/th/id/OIP.44UZfDTaM25JwizOZdkIYAHaEK" alt="Car 5" />
+      <img src="https://wallpaperaccess.com/full/48831.jpg" alt="Car 6" />
+      <img src="https://www.artsandcollections.com/wp-content/uploads/2022/01/Rolls-Royce-Black-Badge-Ghost.jpg" alt="Car 7" />
+      <img src="https://www.hagerty.co.uk/wp-content/uploads/2022/10/MG_7247-scaled-e1664899576607.jpg" alt="Car 8" />
+    </div>
+    <button class="carousel-btn left" id="prevBtn">⟵</button>
+    <button class="carousel-btn right" id="nextBtn">⟶</button>
+  </div>
+  <a href="main.html">⬅ Back to Home</a>
+
+  <script>
+    const track = document.getElementById("carousel-track");
+    const prev = document.getElementById("prevBtn");
+    const next = document.getElementById("nextBtn");
+
+    let index = 0;
+    const total = track.children.length;
+
+    function updateCarousel() {
+      track.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    next.addEventListener("click", () => {
+      index = (index + 1) % total;
+      updateCarousel();
+    });
+
+    prev.addEventListener("click", () => {
+      index = (index - 1 + total) % total;
+      updateCarousel();
+    });
+
+    
+    setInterval(() => {
+      index = (index + 1) % total;
+      updateCarousel();
+    }, 3000);
+  </script>
+</body>
+</html>

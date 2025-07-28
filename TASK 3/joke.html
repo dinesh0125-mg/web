@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Joke Generator - WebDev Explorer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: radial-gradient(circle at top, #1a1a1a, #333);
+      color: #fff;
+      background: url("https://jokojokes.com/thumbnails/original-jokes.jpg") no-repeat center center/cover;
+      padding: 50px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: lab(12.74% 0 0 / 0.662);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px hsl(53, 85%, 57%);
+    }
+
+    button {
+      background-color: #00bcd4;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #0097a7;
+    }
+
+    #jokeDisplay {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #ffeb3b;
+    }
+
+    a {
+      display: block;
+      margin-top: 25px;
+      color: #00f2ff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>😂 Programming Joke Generator</h2>
+    <button id="jokeBtn">Get a Joke</button>
+    <p id="jokeDisplay">Press the button to laugh!</p>
+    <a href="main.html">⬅ Back to Home</a>
+  </div>
+
+  <script>
+    document.getElementById("jokeBtn").addEventListener("click", async () => {
+      const res = await fetch("https://official-joke-api.appspot.com/jokes/programming/random");
+      const data = await res.json();
+      document.getElementById("jokeDisplay").textContent = data[0].setup + " ... " + data[0].punchline;
+    });
+  </script>
+</body>
+</html>
