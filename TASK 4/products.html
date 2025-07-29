@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Listing</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f7f7f7, #e0e0e0);
+    }
+    header {
+      background: #2874f0;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .container {
+      display: flex;
+      padding: 20px;
+    }
+    .sidebar {
+      width: 250px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    .main {
+      flex: 1;
+      padding: 20px;
+    }
+    .filters label, .sort label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .filters input[type="checkbox"] {
+      margin-right: 8px;
+    }
+    .sort select {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .product {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 0 10px #ccc;
+      cursor: pointer;
+    }
+    .product:hover {
+      box-shadow: 0 0 12px #999;
+    }
+    .product img {
+      max-width: 100%;
+      height: 150px;
+      object-fit: contain;
+    }
+    .product h4 {
+      margin: 10px 0 5px;
+    }
+    .product p {
+      font-size: 14px;
+      color: #555;
+    }
+    .cart {
+      background: white;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    .cart ul {
+      list-style: none;
+      padding: 0;
+    }
+    .cart li {
+      margin-bottom: 10px;
+    }
+    .btn {
+      background: #2874f0;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      display: none;
+    }
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 400px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal-content h2 {
+      margin-top: 0;
+    }
+    .modal-close {
+      float: right;
+      cursor: pointer;
+      color: red;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h2>🛍️ NeoMart</h2>
+  <div>
+    Sort By:
+    <select id="sort">
+      <option value="">-- Select --</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="rating">Top Rated</option>
+    </select>
+  </div>
+</header>
+
+<div class="container">
+  <div class="sidebar">
+    <div class="filters">
+      <label>Brands</label>
+      <div><input type="checkbox" value="Poco" checked> Poco</div>
+      <div><input type="checkbox" value="Vivo" checked> Vivo</div>
+      <div><input type="checkbox" value="Realme" checked> Realme</div>
+      <div><input type="checkbox" value="Samsung" checked> Samsung</div>
+      <div><input type="checkbox" value="Redmi" checked> Redmi</div>
+
+      <br/>
+      <label>Price</label>
+      <input type="range" id="priceRange" min="0" max="30000" value="30000">
+      <p>₹ <span id="priceValue">30000</span></p>
+    </div>
+    <div class="cart">
+      <h3>🛒 Cart</h3>
+      <ul id="cart-list"></ul>
+      <p><b>Total:</b> ₹<span id="cart-total">0</span></p>
+      <button class="btn" onclick="checkout()">Checkout</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="product-grid" id="products"></div>
+  </div>
+</div>
+
+<div class="modal" id="productModal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal()">✖</span>
+    <div id="modal-content-area"></div>
+  </div>
+</div>
+
+<script>
+  const allProducts = [
+    { name: "POCO C71", brand: "Poco", price: 6999, rating: 4.2, specs: "128 GB, 6.8\" HD, 32MP Camera", img: "poco c71.jpg" },
+    { name: "Vivo T4x", brand: "Vivo", price: 16999, rating: 4.5, specs: "256 GB, 6.7\" AMOLED, 64MP Camera", img: "VIVO T4X.webp" },
+    { name: "Realme GT 6", brand: "Realme", price: 22999, rating: 4.3, specs: "8GB, 128GB, 120Hz AMOLED", img: "REALME GT 6.webp" },
+    { name: "Samsung M13", brand: "Samsung", price: 12999, rating: 4.0, specs: "6.6\" FHD+, 6000mAh", img: "M13.webp" },
+    { name: "Redmi 12", brand: "Redmi", price: 10999, rating: 4.1, specs: "5000mAh, 50MP AI Camera", img: "REDMI 12.webp"},
+    { name: "POCO X5", brand: "Poco", price: 13999, rating: 4.2, specs: "6GB, 128GB, AMOLED", img: "X5.webp" },
+    { name: "Vivo Y21", brand: "Vivo", price: 11999, rating: 4.0, specs: "4GB RAM, 64GB Storage", img: "Y21.webp" },
+    { name: "Realme Narzo 30", brand: "Realme", price: 10999, rating: 4.1, specs: "Helio G85, 5000mAh", img: "NARZO 30.png" },
+    ];
+
+  let cart = [];
+
+  function renderProducts() {
+    const selectedBrands = [...document.querySelectorAll(".filters input[type='checkbox']:checked")].map(cb => cb.value);
+    const maxPrice = document.getElementById("priceRange").value;
+    const sortBy = document.getElementById("sort").value;
+
+    let filtered = allProducts.filter(p => selectedBrands.includes(p.brand) && p.price <= maxPrice);
+
+    if (sortBy === "price-asc") filtered.sort((a, b) => a.price - b.price);
+    else if (sortBy === "price-desc") filtered.sort((a, b) => b.price - a.price);
+    else if (sortBy === "rating") filtered.sort((a, b) => b.rating - a.rating);
+
+    document.getElementById("products").innerHTML = filtered.map(p => `
+      <div class="product" onclick="showSpecs('${p.name}')">
+        <img src="${p.img}" />
+        <h4>${p.name}</h4>
+        <p>₹${p.price} | ⭐ ${p.rating}</p>
+        <button class="btn" onclick="event.stopPropagation(); addToCart('${p.name}')">Add to Cart</button>
+      </div>`).join("");
+  }
+
+  function addToCart(productName) {
+    const item = allProducts.find(p => p.name === productName);
+    cart.push(item);
+    updateCart();
+  }
+
+  function updateCart() {
+    const cartList = document.getElementById("cart-list");
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    document.getElementById("cart-total").textContent = total;
+    cartList.innerHTML = cart.map(p => `<li>${p.name} - ₹${p.price}</li>`).join("");
+  }
+
+  function checkout() {
+    alert("Your Order As Been Placed!\nTotal: ₹" + document.getElementById("cart-total").textContent);
+    cart = [];
+    updateCart();
+  }
+
+  function showSpecs(productName) {
+    const p = allProducts.find(p => p.name === productName);
+    document.getElementById("modal-content-area").innerHTML = `
+      <h2>${p.name}</h2>
+      <img src="${p.img}" style="width:100%; height:auto;" />
+      <p><b>Brand:</b> ${p.brand}</p>
+      <p><b>Price:</b> ₹${p.price}</p>
+      <p><b>Rating:</b> ${p.rating} ⭐</p>
+      <p><b>Specs:</b> ${p.specs}</p>
+    `;
+    document.getElementById("productModal").style.display = "flex";
+  }
+
+  function closeModal() {
+    document.getElementById("productModal").style.display = "none";
+  }
+
+  document.getElementById("priceRange").addEventListener("input", e => {
+    document.getElementById("priceValue").textContent = e.target.value;
+    renderProducts();
+  });
+
+  document.querySelectorAll(".filters input").forEach(cb => cb.addEventListener("change", renderProducts));
+  document.getElementById("sort").addEventListener("change", renderProducts);
+
+  renderProducts();
+</script>
+
+</body>
+</html>

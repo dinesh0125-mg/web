@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To-Do List</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(to bottom, #00e5ff, #0066ff);
+      padding: 20px;
+      color: white;
+      box-shadow: 2px 0 5px #5d58f2f0;
+    }
+
+    .sidebar h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      text-shadow: 1px 1px 4px #000;
+    }
+
+    .nav {
+      list-style: none;
+      padding: 0;
+    }
+
+    .nav li {
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      transition: background 0.2s;
+    }
+
+    .nav li:hover,
+    .nav li.active {
+      background-color: rgba(255, 255, 255, 0.15);
+      font-weight: bold;
+    }
+
+    .main {
+      flex-grow: 1;
+      padding: 20px;
+      background: linear-gradient(135deg, hsl(286, 68%, 76%), hsl(236, 84%, 75%));
+      overflow-y: auto;
+    }
+
+    .header {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .task-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .task {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+      cursor: grab;
+    }
+
+    .task.dragging {
+      opacity: 0.5;
+    }
+
+    .task .info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .task .title {
+      font-weight: 500;
+    }
+
+    .task .details {
+      font-size: 0.85em;
+      color: #777;
+    }
+
+    .task input[type="checkbox"] {
+      margin-left: 10px;
+      transform: scale(1.2);
+    }
+
+    .add-task {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .add-task input, .add-task select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      flex: 1;
+    }
+
+    .add-task button {
+      padding: 10px 20px;
+      border: none;
+      background: #00bcd4;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .add-task button:hover {
+      background: #0097a7;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>📝 Task Manager</h2>
+    <ul class="nav">
+      <li class="active" data-filter="all">📋 My Day</li>
+      <li data-filter="important">⭐ Important</li>
+      <li data-filter="planned">🗓️ Planned</li>
+      <li data-filter="tasks">📌 Tasks</li>
+      <li data-filter="shopping">🛒 Shopping</li>
+    </ul>
+  </div>
+  <div class="main">
+    <div class="header">My Day</div>
+    <ul class="task-list" id="taskList"></ul>
+    <div class="add-task">
+      <input type="text" id="taskInput" placeholder="New Task..." />
+      <input type="date" id="dueDate" />
+      <select id="category">
+        <option value="tasks">Tasks</option>
+        <option value="important">Important</option>
+        <option value="planned">Planned</option>
+        <option value="shopping">Shopping</option>
+      </select>
+      <button onclick="addTask()">Add</button>
+    </div>
+  </div>
+
+  <script>
+    let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+    let currentFilter = "all";
+
+    const taskList = document.getElementById("taskList");
+
+    function saveTasks() {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function renderTasks() {
+      taskList.innerHTML = "";
+      tasks
+        .filter(t => currentFilter === "all" || t.category === currentFilter)
+        .forEach((task, index) => {
+          const li = document.createElement("li");
+          li.className = "task";
+          li.setAttribute("draggable", true);
+          li.dataset.index = index;
+          li.innerHTML = `
+            <div class="info">
+              <div class="title">${task.title}</div>
+              <div class="details">${task.due || ""} ${task.category === "important" ? "⭐" : ""}</div>
+            </div>
+            <input type="checkbox" ${task.done ? "checked" : ""} onchange="toggleDone(${index})"/>
+          `;
+          if (task.done) li.style.textDecoration = "line-through";
+          addDragEvents(li);
+          taskList.appendChild(li);
+        });
+    }
+
+    function addTask() {
+      const title = document.getElementById("taskInput").value.trim();
+      const due = document.getElementById("dueDate").value;
+      const category = document.getElementById("category").value;
+
+      if (!title) return;
+
+      tasks.push({ title, due, category, done: false });
+      saveTasks();
+      renderTasks();
+
+      document.getElementById("taskInput").value = "";
+      document.getElementById("dueDate").value = "";
+    }
+
+    function toggleDone(index) {
+      tasks[index].done = !tasks[index].done;
+      saveTasks();
+      renderTasks();
+    }
+
+    document.querySelectorAll(".nav li").forEach(nav => {
+      nav.addEventListener("click", () => {
+        document.querySelectorAll(".nav li").forEach(n => n.classList.remove("active"));
+        nav.classList.add("active");
+        currentFilter = nav.dataset.filter;
+        document.querySelector(".header").textContent = nav.textContent;
+        renderTasks();
+      });
+    });
+
+    function addDragEvents(el) {
+      el.addEventListener("dragstart", e => {
+        e.target.classList.add("dragging");
+        e.dataTransfer.setData("text/plain", e.target.dataset.index);
+      });
+
+      el.addEventListener("dragend", e => {
+        e.target.classList.remove("dragging");
+      });
+
+      el.addEventListener("dragover", e => {
+        e.preventDefault();
+        const dragging = document.querySelector(".dragging");
+        const current = e.currentTarget;
+        if (dragging !== current) {
+          taskList.insertBefore(dragging, current);
+        }
+      });
+
+      el.addEventListener("drop", e => {
+        const from = +e.dataTransfer.getData("text/plain");
+        const to = +e.currentTarget.dataset.index;
+        const moved = tasks.splice(from, 1)[0];
+        tasks.splice(to, 0, moved);
+        saveTasks();
+        renderTasks();
+      });
+    }
+
+    renderTasks();
+  </script>
+</body>
+</html>

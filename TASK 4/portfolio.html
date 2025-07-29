@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      background: url("bg-3.png") no-repeat center center/cover;
+      color: hwb(0 27% 72%);
+      line-height: 1.6;
+    }
+    nav {
+      background: #fff;
+      padding: 20px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px #1f1e1eab;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #222;
+    }
+    nav a {
+      text-decoration: none;
+      color: #2f322f;
+      background: linear-gradient(to right, hwb(300 95% 2%), hwb(0 19% 81%));
+      padding: 12px 25px;
+      margin-right: 15px;
+      border-radius: 30px;
+      display: inline-block;
+      transition: 0.3s;
+      box-shadow: 0 0 15px hsl(180, 3%, 7%);
+      font-weight: 500;
+    }
+    nav a:hover {
+      background: #222;
+      color: #fff;
+    }
+
+    section {
+      padding: 60px 10%;
+    }
+
+    #about h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+    #about p {
+      max-width: 800px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    #about em {
+      font-style: italic;
+      color: #777;
+    }
+
+    #projects {
+      background: hsla(240, 3%, 6%, 0.269);
+    }
+
+    .projects-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .project-card {
+      background: hwb(0 11% 88% / 0.516);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px hsla(125, 57%, 57%, 0.701);
+      flex: 1 1 300px;
+      transition: transform 0.3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+    .project-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .project-info {
+      padding: 15px;
+    }
+    .project-info h3 {
+      margin-bottom: 8px;
+    }
+
+    #contact {
+      background: lch(8.85% 2.74 144.01 / 0.432);
+    }
+    form {
+      max-width: 500px;
+      background: hsla(0, 3%, 6%, 0.404);
+      padding: 25px;
+      box-shadow: 0 4px 16px #43ff7296;
+      border-radius: 12px;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    form button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: hsla(119, 74%, 54%, 0.856);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    footer {
+      text-align: center;
+      background: hwb(0 100% 0%);
+      color: hsl(0, 5%, 4%);
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    @media(max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .projects-grid {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">PORTFOLIO</div>
+    <div>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- About Section -->
+  <section id="about">
+    <h1>👋 Hey, I'm dinesh</h1>
+    <p>I’m a Web Developer at ApexPlanet, where technology meets purpose and every line of code crafts a seamless digital experience. With a deep passion for building responsive, user-focused websites, I collaborate with a talented team to bring innovative web solutions to life and elevate the digital presence of brands we believe in.</p>
+    <p><strong>Email:</strong> <a href="mailto:dineshm@gmail.com">dineshm@gmail.com</a></p>
+    <em>"Every great design begins with an even better story." – Lorinda Mamo</em>
+  </section>
+
+ 
+  <section id="projects">
+    <h1>🚀 Featured Projects</h1>
+    <div class="projects-grid">
+      <div class="project-card">
+        <img src="https://www.bing.com/th/id/OGC.aad018327e26d12fba461c33dae640a0?r=0&o=7&pid=1.7&rm=3&rurl=https%3a%2f%2fi.pinimg.com%2foriginals%2f2a%2f53%2f65%2f2a53651a35816f499270d8275fd5318f.gif&ehk=x6e3I5D7HvD2cd3cdCqjlDFzeON99BVprLgtzdYP3FY%3d" alt="Web Development Project" />
+        <div class="project-info">
+          <h3>💻 Web Development</h3>
+          <p>A responsive website built with modern HTML, CSS, and JavaScript.
+Features interactive UI, responsive layouts, and optimized performance.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="https://www.bing.com/th/id/OGC.cb0d139e178018df8b3e778369395ac7?r=0&o=7&pid=1.7&rm=3&rurl=https%3a%2f%2fwww.wingstechsolutions.com%2fwp-content%2fuploads%2f2022%2f03%2ffull-stack-development.gif&ehk=r1YTWzgiq4Ah7ulVl2AT%2feC1xV8BrGo5yVFyJCnoBfk%3d" alt="Full Stack Development Project" />
+        <div class="project-info">
+          <h3>🌐 Full Stack Development</h3>
+          <p>A complete MERN (MongoDB, Express, React, Node.js) application.
+Includes secure authentication, RESTful APIs, and dynamic frontend/backend integration.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="https://cdn.dribbble.com/users/5720644/screenshots/13912339/media/cfc570f6891e4aef4ae3c5282a767847.gif" alt="Portfolio" />
+        <div class="project-info">
+          <h3>Personal Portfolio</h3>
+          <p>Personal site featuring animations, dark mode, and responsive layout.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="contact">
+    <h1>📬 Contact Me</h1>
+    <form onsubmit="sendMessage(event)">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea placeholder="Your Message..." rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    © 2025 portfolio. All rights reserved.
+  </footer>
+
+  <script>
+    function sendMessage(e) {
+      e.preventDefault();
+      alert("Thanks! Your message has been sent.");
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>
