@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Categories - MyShop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9fafb;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background: white;
+      padding: 15px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      color: #2563eb;
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+    nav a {
+      text-decoration: none;
+      color: #1f2937;
+      font-weight: 500;
+    }
+    nav a.active {
+      color: #2563eb;
+      font-weight: 700;
+    }
+    .cart-icon {
+      font-weight: 600;
+      cursor: pointer;
+    }
+    h2.section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin: 40px 0 20px;
+    }
+    p.description {
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      color: #6b7280;
+    }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .category-card {
+      padding: 40px 20px;
+      border-radius: 12px;
+      color: white;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 150px;
+      user-select: none;
+      text-decoration: none;
+    }
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+    }
+    .fashion { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .electronics { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    .home-living { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .beauty { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    .sports { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    .books { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+    footer {
+      background: #1f2937;
+      color: white;
+      padding: 30px 20px;
+      margin-top: 60px;
+    }
+    footer .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+    }
+    footer h3, footer h4 {
+      margin-bottom: 15px;
+    }
+    footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    footer ul li {
+      margin-bottom: 10px;
+    }
+    footer ul li a {
+      color: #d1d5db;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer ul li a:hover {
+      color: white;
+    }
+    footer .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>MyShop</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="category.html" class="active">Categories</a></li>
+          <li><a href="index.html#products">Products</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="cart-icon">Cart <span id="cartCount">0</span></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2 class="section-title">Shop by Categories</h2>
+    <p class="description">Explore our wide range of categories.</p>
+    <div class="categories-grid">
+      <a href="fashion.html" class="category-card fashion">Fashion<br><small>Trendy clothes & accessories</small></a>
+      <a href="electronics.html" class="category-card electronics">Electronics<br><small>Latest gadgets & devices</small></a>
+      <a href="home-living.html" class="category-card home-living">Home & Living<br><small>Decor & essentials</small></a>
+      <a href="beauty.html" class="category-card beauty">Beauty<br><small>Cosmetics & skincare</small></a>
+      <a href="sports.html" class="category-card sports">Sports<br><small>Fitness & outdoor gear</small></a>
+      <a href="books.html" class="category-card books">Books<br><small>Knowledge & entertainment</small></a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div>
+        <h3>MyShop</h3>
+        <p>Your trusted online marketplace for quality products at great prices.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="category.html" class="active">Categories</a></li>
+          <li><a href="index.html#products">Products</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Customer Service</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Track Order</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>About</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2024 MyShop. All rights reserved.</div>
+  </footer>
+</body>
+</html>

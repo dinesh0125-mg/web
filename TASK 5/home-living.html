@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home & Living - MyShop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9fafb;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background: white;
+      padding: 15px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      color: #2563eb;
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+    nav a {
+      text-decoration: none;
+      color: #1f2937;
+      font-weight: 500;
+    }
+    nav a.active {
+      color: #2563eb;
+      font-weight: 700;
+    }
+    .cart-icon {
+      font-weight: 600;
+      cursor: pointer;
+    }
+    h2.section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin: 40px 0 20px;
+    }
+    p.description {
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      color: #6b7280;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+    }
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #f3f4f6;
+    }
+    .product-info {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: #1f2937;
+    }
+    .product-price {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #2563eb;
+      margin-bottom: 10px;
+    }
+    .product-description {
+      font-size: 0.9rem;
+      color: #6b7280;
+      flex-grow: 1;
+    }
+    footer {
+      background: #1f2937;
+      color: white;
+      padding: 30px 20px;
+      margin-top: 60px;
+      text-align: center;
+    }
+    footer .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    footer h3 {
+      margin-bottom: 15px;
+    }
+    footer p {
+      margin: 0;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>MyShop</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="fashion.html">Fashion</a></li>
+          <li><a href="electronics.html">Electronics</a></li>
+          <li><a href="home-living.html" class="active">Home & Living</a></li>
+          <li><a href="beauty.html">Beauty</a></li>
+          <li><a href="sports.html">Sports</a></li>
+          <li><a href="books.html">Books</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="cart-icon">Cart <span id="cartCount">0</span></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2 class="section-title">Home & Living</h2>
+    <p class="description">Decor & essentials.</p>
+    <div class="products-grid" id="productsGrid">
+      
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <h3>MyShop</h3>
+      <p>Your trusted online marketplace for quality products at great prices.</p>
+    </div>
+  </footer>
+
+  <script>
+    const products = [
+      {
+        id: 7,
+        name: "Stainless Steel Water Bottle",
+        price: 799,
+        image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&h=300&fit=crop",
+        description: "Insulated water bottle that keeps drinks hot for 12 hours or cold for 24 hours."
+      },
+      {
+        id: 10,
+        name: "Desk Organizer",
+        price: 1599,
+        image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop",
+        description: "Bamboo desk organizer with multiple compartments for office supplies."
+      },
+      {
+        id: 12,
+        name: "Coffee Mug Set",
+        price: 899,
+        image: "https://images.unsplash.com/photo-1514228742587-6b1558fcf93a?w=400&h=300&fit=crop",
+        description: "Set of 2 ceramic coffee mugs with elegant design and comfortable handles."
+      }
+    ];
+
+    function renderProducts() {
+      const container = document.getElementById('productsGrid');
+      container.innerHTML = '';
+      products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+
+        const img = document.createElement('img');
+        img.src = product.image;
+        img.alt = product.name;
+        img.className = 'product-image';
+
+        const info = document.createElement('div');
+        info.className = 'product-info';
+
+        const name = document.createElement('h3');
+        name.className = 'product-name';
+        name.textContent = product.name;
+
+        const price = document.createElement('div');
+        price.className = 'product-price';
+        price.textContent = `₹${product.price.toLocaleString()}`;
+
+        const desc = document.createElement('p');
+        desc.className = 'product-description';
+        desc.textContent = product.description;
+
+        info.appendChild(name);
+        info.appendChild(price);
+        info.appendChild(desc);
+
+        card.appendChild(img);
+        card.appendChild(info);
+
+        container.appendChild(card);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', renderProducts);
+  </script>
+</body>
+</html>
